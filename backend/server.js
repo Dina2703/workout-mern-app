@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const mongoose = require("mongoose");
 const workoutRoutes = require("./routes /workouts");
 
 //express app
@@ -23,8 +24,17 @@ app.use((req, res, next) => {
 
 app.use("/api/workouts", workoutRoutes);
 
-//listen a specific port number  for requests
-app.listen(process.env.PORT, (req, res) => {
-  console.log("Listining on port", process.env.PORT);
-});
+//connect to db via mongoose. and it's a async process, it takes a little bit of time to do, it returns a promise
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then((req, res) => {
+    //listen a specific port number  for requests
+    app.listen(process.env.PORT, (req, res) => {
+      console.log("Connected to db & listining on port", process.env.PORT);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 // We could've run 'node server.js'   to run the server, but if we make a change to the file now in order for this to work we'd have to cancel out of this process and then run 'node server.js' again. Instead use 'nodemon'. To run it say 'nodemon server.js'. It re-runs the file each time, when it detected a change.
