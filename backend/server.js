@@ -27,7 +27,7 @@ app.use("/api/workouts", workoutRoutes);
 //connect to db via mongoose. and it's a async process, it takes a little bit of time to do, it returns a promise
 mongoose
   .connect(process.env.MONGO_URI)
-  .then((req, res) => {
+  .then(() => {
     //listen a specific port number  for requests
     app.listen(process.env.PORT, (req, res) => {
       console.log("Connected to db & listining on port", process.env.PORT);
