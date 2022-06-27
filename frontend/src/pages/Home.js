@@ -18,12 +18,30 @@ function Home() {
     fetchWorkouts();
   }, []);
 
+  const deleteWorkout = async (id) => {
+    console.log("deleteIcon presssed", id);
+    const response = await fetch(`/api/workouts/${id}`, {
+      method: "DELETE",
+    });
+
+    const deletedWorkout = await response.json();
+    console.log(deletedWorkout);
+
+    if (!response.ok) {
+      alert(deletedWorkout.error);
+    }
+  };
+
   return (
     <div className="home">
       <div className="workouts">
         {workouts &&
           workouts.map((workout) => (
-            <WorkoutDetails key={workout._id} workout={workout} />
+            <WorkoutDetails
+              key={workout._id}
+              workout={workout}
+              deleteWorkout={deleteWorkout}
+            />
           ))}
       </div>
       <WorkoutForm />

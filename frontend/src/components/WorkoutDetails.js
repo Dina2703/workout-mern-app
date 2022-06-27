@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function WorkoutDetails({ workout }) {
+function WorkoutDetails({ workout, deleteWorkout }) {
   return (
     <div className="workout-details">
+      <button className="deleteIcon" onClick={() => deleteWorkout(workout._id)}>
+        x
+      </button>
       <Link to={`/${workout._id}`}>
         <h4>{workout.title}</h4>
         <p>
