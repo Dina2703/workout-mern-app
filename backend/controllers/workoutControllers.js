@@ -29,6 +29,24 @@ const getWorkout = async (req, res) => {
 const createWorkout = async (req, res) => {
   const { title, reps, load } = req.body;
 
+  //to handle an error, check all fields
+  let emptyFields = [];
+
+  if (!title) {
+    emptyFields.push("title");
+  }
+  if (!load) {
+    emptyFields.push("load");
+  }
+  if (!reps) {
+    emptyFields.push("reps");
+  }
+  if (emptyFields.length > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in all fields", emptyFields });
+  }
+
   //add doc to db
   try {
     const newWorkout = await Workout.create({
@@ -38,6 +56,7 @@ const createWorkout = async (req, res) => {
     });
     res.status(200).json(newWorkout);
   } catch (error) {
+    //the error below created by mongoose, based on Schema, that we created. If we try to save a document that is not correspond out Schema(workoutSchema), it's going to throw that error.
     res.status(400).json({ error: error.message });
   }
 };

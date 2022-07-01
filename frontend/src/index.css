@@ -109,6 +109,10 @@ div.error {
   margin: 20px 0;
 }
 
+input.error {
+  border: 1px solid var(--error);
+}
+
 .deleteIcon {
   background: rgb(236, 236, 236);
   position: absolute;
