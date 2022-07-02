@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+//date fns package Modern JavaScript date utility library
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 function WorkoutDetails({ workout }) {
   const { dispatch } = useWorkoutsContext();
@@ -40,7 +42,11 @@ function WorkoutDetails({ workout }) {
           <strong>Reps: </strong>
           {workout.reps}
         </p>
-        <p>{workout.createdAt}</p>
+        <p>
+          {formatDistanceToNow(new Date(workout.createdAt), {
+            addSuffix: true,
+          })}
+        </p>
       </Link>
     </div>
   );
