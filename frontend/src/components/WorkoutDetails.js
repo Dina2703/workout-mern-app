@@ -24,9 +24,12 @@ function WorkoutDetails({ workout }) {
 
   return (
     <div className="workout-details">
-      <button className="deleteIcon" onClick={() => deleteWorkout(workout._id)}>
-        x
-      </button>
+      <span
+        className="material-symbols-outlined"
+        onClick={() => deleteWorkout(workout._id)}
+      >
+        delete
+      </span>
       <Link to={`/${workout._id}`}>
         <h4>{workout.title}</h4>
         <p>
